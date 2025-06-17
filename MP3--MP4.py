@@ -21,7 +21,7 @@ def has_audio_stream(file_path: str) -> bool:
        st.error(e)
        return False
 
-st.title("Conversion MP4 → MP3 avec FFmpeg")
+st.title("Conversion MP4 → MP3")
 st.write("Uploader votre fichier MP4 pour extraire l'audio.")
 
 # Uploader le fichier MP4
