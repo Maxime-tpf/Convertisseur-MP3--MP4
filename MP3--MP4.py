@@ -30,6 +30,7 @@ if uploaded_file is not None:
 
     command = [
         'ffmpeg',
+        '-y',  # Ajout de l'option pour forcer l'écrasement
         '-i', input_file,
         '-vn',
         '-ar', '44100',
@@ -39,13 +40,13 @@ if uploaded_file is not None:
     ]
 
     try:
-        subprocess.run(command, check=True)
+        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         st.success("Conversion terminée !")
         with open(output_file, "rb") as f:
             st.download_button("Télécharger le MP3", f, file_name="converted.mp3", mime="audio/mp3")
     except subprocess.CalledProcessError as e:
         st.error("Une erreur est survenue lors de la conversion.")
-        st.error(e)
+        st.error(e.stderr)
     finally:
         os.remove(input_file)
         os.remove(output_file)
